@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(["namespace" => "Auth", "middleware" => "auth"], function(){
-    Route::post("/logout", "LoginController@logout");
-});
+
 // группа авторизации
 Route::group(["namespace" => "Auth"], function () {
     Route::post("/signup", "RegisterController@signup");
@@ -23,4 +21,13 @@ Route::group(["namespace" => "Auth"], function () {
     Route::get("/login", function() {
         return response()->json(["message" => "Вы должны авторизоваться"] ,403);
     })->name("login");
+});
+
+Route::group(["namespace" => "Auth", "middleware" => "auth"], function(){
+    Route::post("/logout", "LoginController@logout");
+});
+
+Route::group(["middleware" => "auth"], function () {
+    Route::post("photo", "PhotoController@upload");
+    Route::patch("photo/{id}", "PhotoController@update");
 });

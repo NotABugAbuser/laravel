@@ -44,11 +44,8 @@ class LoginController extends Controller
             "password.required" => "Поле Пароль не заполнено"
         ]);
         if ($validator->fails()) {
-            $errors = [];
-            foreach(json_decode($validator->errors()) as $field => $messages) {
-                $errors[$field] = implode("\n", $messages);
-            }
-            return response()->json($errors, 422);
+            $messages = $this->convertToMessageList($validator->errors());
+            return response()->json($messages, 422);
         }
         $users = User::where('nickname', $request['nickname'])->where('password', $request["password"])->get();
         if (count($users) > 0) {

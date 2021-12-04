@@ -35,7 +35,7 @@ class RegisterController extends Controller
             return response()->json($errors, 422);
         } else {
             $user = User::create([
-                "first_name" => "2",
+                "first_name" => $request["first_name"],
                 "second_name" => $request["second_name"],
                 "surname" => $request["surname"],
                 "nickname" => $request["nickname"],
