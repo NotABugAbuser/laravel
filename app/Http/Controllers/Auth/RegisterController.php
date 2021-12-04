@@ -22,10 +22,10 @@ class RegisterController extends Controller
             "surname.required" => "Поле Фамилия не заполнено.",
             "nickname.required" => "Поле Никнейм не заполнено.",
             "password.required" => "Поле Пароль не заполнено.",
-            "max" => "Поле Никнейм должно состоять не более, чем из 11 символов.",
-            "min" => "Поле Никнейм должно состоять хотя бы из 11 символов.",
-            "unique" => "Такой Никнейм уже есть в базе данных.",
-            "not_regex" => "Поле Никнейм должно состоять только из цифр.",
+            "nickname.max" => "Поле Никнейм должно состоять не более, чем из 11 символов.",
+            "nickname.min" => "Поле Никнейм должно состоять хотя бы из 11 символов.",
+            "nickname.unique" => "Такой Никнейм уже есть в базе данных.",
+            "nickname.not_regex" => "Поле Никнейм должно состоять только из цифр.",
         ]);
         if ($validator->fails()) {
             $errors = [];
@@ -41,7 +41,7 @@ class RegisterController extends Controller
                 "nickname" => $request["nickname"],
                 "password" => $request["password"],
             ]);
-            return $user->id;
+            return response($user->id, 201);
         }
     }
 }
